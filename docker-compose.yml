@@ -7,5 +7,9 @@ services:
       context: nginx-static/.
       dockerfile: Dockerfile
     image: whoan/nginx-static:latest
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
+
+  node-alpine-slim:
+    build:
+      context: node-alpine-slim/.
+      dockerfile: Dockerfile
+    image: whoan/node:alpine-slim
