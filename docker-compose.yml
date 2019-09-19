@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+  nginx-static:
+    build:
+      context: nginx-static/.
+      dockerfile: Dockerfile
+    image: whoan/nginx-static:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
