@@ -1,10 +1,10 @@
-name: Docker Image CI
+name: Node Alpine Slim
 
 on:
   push:
     paths:
       - 'node-alpine-slim/*'
-      - '.github/workflows/dockerimage.yml'
+      - '.github/workflows/node-alpine-slim.yml'
 
 jobs:
 
