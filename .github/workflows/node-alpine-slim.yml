@@ -10,67 +10,17 @@ jobs:
 
   build:
 
-    name: Build docker image and push it to registry
+    name: Build docker image (with cache) and push it to registry
     runs-on: ubuntu-latest
 
     steps:
 
-    - name: Define env variables
-      run: |
-        cat > ${HOME}/env_variables.sh <<EOF
+    - uses: actions/checkout@v1
 
-        # variables to change according to needs
-        export IMAGE_NAME=${{ github.actor }}/node
-        export IMAGE_TAG=alpine-slim
-        export CONTEXT=node-alpine-slim
-
-        # internal variables
-        export PULL_STAGES_LOG=${HOME}/pull-stages-output.log
-        export BUILD_LOG=${HOME}/build-output.log
-
-        EOF
-
-    - uses: actions/checkout@master
-
-    - name: Login to Docker Hub
-      run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-
-    - name: Pull cached stages
-      run: |
-        source ${HOME}/env_variables.sh
-        docker pull ${IMAGE_NAME}:${IMAGE_TAG}
-        docker pull --all-tags ${IMAGE_NAME}-stages | tee "$PULL_STAGES_LOG"
-      continue-on-error: true
-
-    - name: Build Docker image
-      run: |
-        source ${HOME}/env_variables.sh
-        get_max_stage_number() {
-          sed -nr 's/^([0-9]+): Pulling from.+/\1/p' "$PULL_STAGES_LOG" |
-          sort -h |
-          tail -n 1
-        }
-        max_stage=$(get_max_stage_number)
-        if [ "$max_stage" ]; then
-          cache_from=$(eval "echo --cache-from=${IMAGE_NAME}-stages:{1..$max_stage}")
-          echo "Use cache: $cache_from"
-        fi
-        docker build \
-          $cache_from \
-          --cache-from=${IMAGE_NAME}:${IMAGE_TAG} \
-          --tag ${IMAGE_NAME}:${IMAGE_TAG} \
-          ${CONTEXT} | tee "$BUILD_LOG"
-
-    - name: Push image and stages
-      run: |
-        source ${HOME}/env_variables.sh
-        get_stages() {
-          grep -EB1 '^Step [0-9]+/[0-9]+ : FROM' "$BUILD_LOG" |
-          sed -rn 's/ *-*> (.+)/\1/p'
-        }
-        docker push ${IMAGE_NAME}:${IMAGE_TAG}
-        while read -r stage; do
-          stage_image=${IMAGE_NAME}-stages:$((++i))
-          docker tag $stage $stage_image
-          docker push $stage_image
-        done < <(get_stages)
+    - uses: whoan/docker-build-with-cache-action@master
+      with:
+        docker_username: "${{ secrets.DOCKER_USERNAME }}"
+        docker_password: "${{ secrets.DOCKER_PASSWORD }}"
+        image_name: ${{ github.actor }}/node
+        image_tag: alpine-slim
+        context: node-alpine-slim
