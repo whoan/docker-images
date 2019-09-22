@@ -1,4 +1,4 @@
-FROM alpine:lts-alpine as build-stage
+FROM alpine:3.10.2 as build-stage
 
 ENV NODE_VERSION 12.10.0
 
@@ -52,7 +52,7 @@ RUN \
   apk add --no-cache binutils \
   && strip /usr/local/bin/node
 
-FROM alpine:lts-alpine
+FROM alpine:3.10.2
 
 RUN apk add --no-cache libstdc++
 
