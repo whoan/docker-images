@@ -6,10 +6,10 @@ services:
     build:
       context: nginx-static/.
       dockerfile: Dockerfile
-    image: whoan/nginx-static:latest
+    image: docker.pkg.github.com/whoan/docker-images/nginx-static:latest
 
   node-alpine-slim:
     build:
       context: node-alpine-slim/.
       dockerfile: Dockerfile
-    image: whoan/node:alpine-slim
+    image: docker.pkg.github.com/whoan/docker-images/node:alpine-slim
