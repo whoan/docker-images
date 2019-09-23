@@ -19,8 +19,8 @@ jobs:
 
     - uses: whoan/docker-build-with-cache-action@v1
       with:
-        docker_username: "${{ secrets.DOCKER_USERNAME }}"
-        docker_password: "${{ secrets.DOCKER_PASSWORD }}"
+        username: "${{ secrets.DOCKER_USERNAME }}"
+        password: "${{ secrets.DOCKER_PASSWORD }}"
         image_name: whoan/node
         image_tag: alpine-slim
         context: node-alpine-slim
