@@ -13,3 +13,15 @@ services:
       context: node-alpine-slim/.
       dockerfile: Dockerfile
     image: docker.pkg.github.com/whoan/docker-images/node:alpine-slim
+
+  quickfix-alpine:
+    build:
+      context: quickfix/alpine-3/.
+      dockerfile: Dockerfile
+    image: whoan/quickfix:alpine
+
+  quickfix-debian:
+    build:
+      context: quickfix/debian-10/.
+      dockerfile: Dockerfile
+    image: whoan/quickfix:debian
