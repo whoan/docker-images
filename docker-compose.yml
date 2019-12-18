@@ -24,4 +24,4 @@ services:
     build:
       context: quickfix/debian-10/.
       dockerfile: Dockerfile
-    image: whoan/quickfix:debian
+    image: whoan/quickfix:debian-buster
