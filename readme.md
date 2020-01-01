@@ -5,3 +5,7 @@
 # Docker Images
 
 Repo with custom images.
+
+## License
+
+[MIT](https://github.com/whoan/docker-images/blob/master/LICENSE)
