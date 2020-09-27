@@ -15,7 +15,6 @@ jobs:
     - uses: whoan/docker-build-with-cache-action@master
       with:
         username: whoan
-        password: "${{ secrets.GH_PAT }}"
+        password: "${{ secrets.DOCKERHUB_PASSWORD }}"
         image_name: nginx-static
-        registry: ghcr.io
         context: nginx-static
