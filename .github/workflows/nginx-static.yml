@@ -8,19 +8,14 @@ on:
 
 jobs:
 
-  build:
-
-    name: Build docker image (with cache) and push it to registry
+  build-nginx:
     runs-on: ubuntu-latest
-
     steps:
-
     - uses: actions/checkout@v1
-
     - uses: whoan/docker-build-with-cache-action@master
       with:
         username: "${{ secrets.DOCKER_USERNAME }}"
         password: "${{ secrets.DOCKER_PASSWORD }}"
-        image_name: whoan/docker-images/nginx-static
-        registry: docker.pkg.github.com
+        image_name: nginx-static
+        registry: ghcr.io
         context: nginx-static
