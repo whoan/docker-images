@@ -14,8 +14,8 @@ jobs:
     - uses: actions/checkout@v1
     - uses: whoan/docker-build-with-cache-action@master
       with:
-        username: "${{ secrets.DOCKER_USERNAME }}"
-        password: "${{ secrets.DOCKER_PASSWORD }}"
+        username: whoan
+        password: "${{ secrets.NEW_GH_PAT }}"
         image_name: nginx-static
         registry: ghcr.io
         context: nginx-static
