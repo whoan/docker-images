@@ -1,4 +1,4 @@
-FROM alpine:3.10.2 as build-stage
+FROM alpine:3.12.1 as build-stage
 
 ENV NODE_VERSION 10.16.3
 
