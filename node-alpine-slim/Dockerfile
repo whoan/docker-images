@@ -1,4 +1,4 @@
-FROM alpine:3.10.2 as build-stage
+FROM alpine:3.12.1 as build-stage
 
 ENV NODE_VERSION 10.16.3
 
@@ -15,7 +15,7 @@ RUN addgroup -g 1000 node \
         libgcc \
         linux-headers \
         make \
-        python \
+        python2 \
   # gpg keys listed at https://github.com/nodejs/node#release-keys
   && for key in \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
